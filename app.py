@@ -83,24 +83,18 @@ if "logged_in" not in st.session_state:
 if "page" not in st.session_state:
     st.session_state.page = "Login"
 
-# Login form function
 def login():
     st.markdown("## 🔐 Login to Health Assistant")
 
+    # Input fields
     username = st.text_input("👤 Username", key="login_username")
     password = st.text_input("🔑 Password", type="password", key="login_password")
 
     col1, col2 = st.columns([1, 2.5])
+
+    # Login button in col1
     with col1:
         if st.button("🔓 Login", use_container_width=True, key="login_button"):
-
-    username = st.text_input("👤 Username")
-    password = st.text_input("🔑 Password", type="password")
-
-    col1, col2 = st.columns([1, 2.5])
-    with col1:
-        if st.button("🔓 Login", use_container_width=True):
-
             if check_password(username, password):
                 st.session_state.logged_in = True
                 st.session_state.username = username
@@ -108,12 +102,10 @@ def login():
                 st.rerun()
             else:
                 st.error("❌ Invalid username or password.")
+
+    # Register redirection button in col2
     with col2:
-
         if st.button("Don't have an account? Register", use_container_width=True, key="register_button_from_login"):
-
-        if st.button("Don't have an account? Register", use_container_width=True):
-
             st.session_state.page = "Register"
             st.rerun()
 
