@@ -25,7 +25,7 @@ from sklearn.model_selection import train_test_split
 import warnings
 warnings.filterwarnings('ignore') # Suppress TensorFlow warnings
 
-=======
+
 >>>>>>> b11d9b7f112ada933af127f161ee2a0dc30a9d51
 
 # Set page configuration
