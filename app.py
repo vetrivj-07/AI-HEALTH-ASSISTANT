@@ -1432,38 +1432,53 @@ if selected == "Brain Tumor Prediction":
 # Prediction History Page
 if selected == 'Prediction History':
     st.markdown("## 📋 Prediction History")
-    
+
     if not st.session_state.prediction_history:
         st.info("No prediction history available. Make some predictions first!")
     else:
         st.markdown(f"### Total Predictions: {len(st.session_state.prediction_history)}")
-        
+
+        # Filters
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            patient_names = ['All'] + sorted(list(set(entry['patient_name'] for entry in st.session_state.prediction_history)))
+            patient_names = ['All'] + sorted(set(entry['patient_name'] for entry in st.session_state.prediction_history))
+            selected_patient = st.selectbox("🧍‍♂️ Patient", patient_names, key="filter_patient")
 
-            selected_patient = st.selectbox("Filter by Patient", patient_names, key="filter_patient")
         with col2:
-            prediction_types = ['All'] + list(set(entry['type'] for entry in st.session_state.prediction_history))
-            selected_type = st.selectbox("Filter by Prediction Type", prediction_types, key="filter_type")
+            prediction_types = ['All'] + sorted(set(entry['type'] for entry in st.session_state.prediction_history))
+            selected_type = st.selectbox("📊 Prediction Type", prediction_types, key="filter_type")
+
         with col3:
             risk_levels = ['All', 'High', 'Low']
-            selected_risk = st.selectbox("Filter by Risk Level", risk_levels, key="filter_risk")
+            selected_risk = st.selectbox("⚠️ Risk Level", risk_levels, key="filter_risk")
+
         with col4:
             if st.button("🗑️ Clear History", type="secondary", key="clear_history_btn"):
-
-            selected_patient = st.selectbox("Filter by Patient", patient_names)
-        with col2:
-            prediction_types = ['All'] + list(set(entry['type'] for entry in st.session_state.prediction_history))
-            selected_type = st.selectbox("Filter by Prediction Type", prediction_types)
-        with col3:
-            risk_levels = ['All', 'High', 'Low']
-            selected_risk = st.selectbox("Filter by Risk Level", risk_levels)
-        with col4:
-            if st.button("🗑️ Clear History", type="secondary"):
-
                 st.session_state.prediction_history = []
+                st.success("Prediction history cleared.")
                 st.rerun()
+
+        # Apply filters
+        filtered_history = st.session_state.prediction_history
+        if selected_patient != 'All':
+            filtered_history = [entry for entry in filtered_history if entry['patient_name'] == selected_patient]
+        if selected_type != 'All':
+            filtered_history = [entry for entry in filtered_history if entry['type'] == selected_type]
+        if selected_risk != 'All':
+            filtered_history = [entry for entry in filtered_history if entry['risk'] == selected_risk]
+
+        if not filtered_history:
+            st.warning("No predictions match the selected filters.")
+        else:
+            for idx, entry in enumerate(filtered_history, 1):
+                with st.expander(f"{idx}. {entry['type']} | {entry['patient_name']} | Risk: {entry['risk']}"):
+                    st.markdown(f"**🧍 Patient:** {entry['patient_name']}")
+                    st.markdown(f"**📊 Prediction Type:** {entry['type']}")
+                    st.markdown(f"**⚠️ Risk Level:** `{entry['risk']}`")
+                    st.markdown(f"**🧠 Result:** {entry['result']}")
+                    st.markdown("### 🔍 Input Features")
+                    st.json(entry['inputs'])
+
         
         # Filter history
         filtered_history = st.session_state.prediction_history
