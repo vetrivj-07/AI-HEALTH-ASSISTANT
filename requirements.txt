@@ -1,7 +1,6 @@
 streamlit
 streamlit-option-menu
 tensorflow>=2.13
-python 3.10
 pandas
 plotly
 openai
