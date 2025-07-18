@@ -1,6 +1,6 @@
 streamlit
 streamlit-option-menu
-tensorflow>=2.13
+pip install tensorflow==2.13.0
 pandas
 plotly
 openai
