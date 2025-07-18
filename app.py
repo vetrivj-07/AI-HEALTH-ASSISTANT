@@ -1628,11 +1628,7 @@ if selected == 'Health Chatbot':
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-
-    if user_prompt := st.chat_input("Ask a health-related question...", key="chatbot_input"):
-
     if user_prompt := st.chat_input("Ask a health-related question..."):
-
         st.session_state.chatbot_history.append({"role": "user", "content": user_prompt})
         with st.chat_message("user"):
             st.markdown(user_prompt)
@@ -1641,15 +1637,15 @@ if selected == 'Health Chatbot':
             with st.spinner("🤖 Thinking..."):
                 try:
                     messages_for_api = [{"role": m["role"], "content": m["content"]} for m in st.session_state.chatbot_history]
-                    response = st.session_state.deepseek_client.chat.completions.create(model="deepseek-chat", messages=messages_for_api)
+                    response = st.session_state.deepseek_client.chat.completions.create(
+                        model="deepseek-chat", messages=messages_for_api
+                    )
                     bot_reply = response.choices[0].message.content
                     st.session_state.chatbot_history.append({"role": "assistant", "content": bot_reply})
                     st.markdown(bot_reply)
                 except Exception as e:
                     error_message = f"❌ An error occurred: {e}. Please check your API key and account balance."
+                    st.session_state.chatbot_history.append({"role": "assistant", "content": error_message})
                     st.error(error_message)
 
-                    st.session_state.chatbot_history.append({"role": "assistant", "content": error_message})
-
-                    st.session_state.chatbot_history.append({"role": "assistant", "content": error_message})
 
