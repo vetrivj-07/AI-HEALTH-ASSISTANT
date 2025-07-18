@@ -809,72 +809,50 @@ if selected == "Parkinsons Prediction":
 
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-
-        fo = st.number_input('🎵 MDVP:Fo(Hz)', min_value=50.0, max_value=300.0, value=150.0, help="Average vocal fundamental frequency", key="pk_fo")
-        RAP = st.number_input('📊 MDVP:RAP', min_value=0.0, max_value=1.0, value=0.01, step=0.001, format="%.4f", key="pk_rap")
-        Shimmer = st.number_input('🌊 MDVP:Shimmer', min_value=0.0, max_value=1.0, value=0.03, step=0.001, format="%.4f", key="pk_shimmer")
-        APQ = st.number_input('📈 MDVP:APQ', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f", key="pk_apq")
-        RPDE = st.number_input('🔢 RPDE', min_value=0.0, max_value=1.0, value=0.5, step=0.01, key="pk_rpde")
+        fo = st.number_input('🎵 MDVP:Fo(Hz)', 50.0, 300.0, 150.0, key="pk_fo")
+        RAP = st.number_input('📊 MDVP:RAP', 0.0, 1.0, 0.01, 0.001, format="%.4f", key="pk_rap")
+        Shimmer = st.number_input('🌊 MDVP:Shimmer', 0.0, 1.0, 0.03, 0.001, format="%.4f", key="pk_shimmer")
+        APQ = st.number_input('📈 MDVP:APQ', 0.0, 1.0, 0.02, 0.001, format="%.4f", key="pk_apq")
+        RPDE = st.number_input('🔢 RPDE', 0.0, 1.0, 0.5, 0.01, key="pk_rpde")
     with col2:
-        fhi = st.number_input('🎵 MDVP:Fhi(Hz)', min_value=50.0, max_value=500.0, value=200.0, key="pk_fhi")
-        PPQ = st.number_input('📊 MDVP:PPQ', min_value=0.0, max_value=1.0, value=0.01, step=0.001, format="%.4f", key="pk_ppq")
-        Shimmer_dB = st.number_input('🌊 MDVP:Shimmer(dB)', min_value=0.0, max_value=2.0, value=0.3, step=0.01, key="pk_shimmerdb")
-        DDA = st.number_input('📈 Shimmer:DDA', min_value=0.0, max_value=1.0, value=0.05, step=0.001, format="%.4f", key="pk_dda")
-        DFA = st.number_input('🔢 DFA', min_value=0.0, max_value=1.0, value=0.7, step=0.01, key="pk_dfa")
+        fhi = st.number_input('🎵 MDVP:Fhi(Hz)', 50.0, 500.0, 200.0, key="pk_fhi")
+        PPQ = st.number_input('📊 MDVP:PPQ', 0.0, 1.0, 0.01, 0.001, format="%.4f", key="pk_ppq")
+        Shimmer_dB = st.number_input('🌊 MDVP:Shimmer(dB)', 0.0, 2.0, 0.3, 0.01, key="pk_shimmerdb")
+        DDA = st.number_input('📈 Shimmer:DDA', 0.0, 1.0, 0.05, 0.001, format="%.4f", key="pk_dda")
+        DFA = st.number_input('🔢 DFA', 0.0, 1.0, 0.7, 0.01, key="pk_dfa")
     with col3:
-        flo = st.number_input('🎵 MDVP:Flo(Hz)', min_value=50.0, max_value=300.0, value=100.0, key="pk_flo")
-        DDP = st.number_input('📊 Jitter:DDP', min_value=0.0, max_value=1.0, value=0.03, step=0.001, format="%.4f", key="pk_ddp")
-        APQ3 = st.number_input('🌊 Shimmer:APQ3', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f", key="pk_apq3")
-        NHR = st.number_input('📈 NHR', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f", key="pk_nhr")
-        spread1 = st.number_input('📊 spread1', min_value=-10.0, max_value=0.0, value=-5.0, step=0.1, key="pk_spread1")
+        flo = st.number_input('🎵 MDVP:Flo(Hz)', 50.0, 300.0, 100.0, key="pk_flo")
+        DDP = st.number_input('📊 Jitter:DDP', 0.0, 1.0, 0.03, 0.001, format="%.4f", key="pk_ddp")
+        APQ3 = st.number_input('🌊 Shimmer:APQ3', 0.0, 1.0, 0.02, 0.001, format="%.4f", key="pk_apq3")
+        NHR = st.number_input('📈 NHR', 0.0, 1.0, 0.02, 0.001, format="%.4f", key="pk_nhr")
+        spread1 = st.number_input('📊 spread1', -10.0, 0.0, -5.0, 0.1, key="pk_spread1")
     with col4:
-        Jitter_percent = st.number_input('📊 MDVP:Jitter(%)', min_value=0.0, max_value=10.0, value=0.5, step=0.01, key="pk_jitter_percent")
-        APQ5 = st.number_input('🌊 Shimmer:APQ5', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f", key="pk_apq5")
-        HNR = st.number_input('📈 HNR', min_value=0.0, max_value=50.0, value=20.0, step=0.1, key="pk_hnr")
-        spread2 = st.number_input('📊 spread2', min_value=0.0, max_value=1.0, value=0.2, step=0.01, key="pk_spread2")
-
-        fo = st.number_input('🎵 MDVP:Fo(Hz)', min_value=50.0, max_value=300.0, value=150.0, help="Average vocal fundamental frequency")
-        RAP = st.number_input('📊 MDVP:RAP', min_value=0.0, max_value=1.0, value=0.01, step=0.001, format="%.4f")
-        Shimmer = st.number_input('🌊 MDVP:Shimmer', min_value=0.0, max_value=1.0, value=0.03, step=0.001, format="%.4f")
-        APQ = st.number_input('📈 MDVP:APQ', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f")
-        RPDE = st.number_input('🔢 RPDE', min_value=0.0, max_value=1.0, value=0.5, step=0.01)
-    with col2:
-        fhi = st.number_input('🎵 MDVP:Fhi(Hz)', min_value=50.0, max_value=500.0, value=200.0)
-        PPQ = st.number_input('📊 MDVP:PPQ', min_value=0.0, max_value=1.0, value=0.01, step=0.001, format="%.4f")
-        Shimmer_dB = st.number_input('🌊 MDVP:Shimmer(dB)', min_value=0.0, max_value=2.0, value=0.3, step=0.01)
-        DDA = st.number_input('📈 Shimmer:DDA', min_value=0.0, max_value=1.0, value=0.05, step=0.001, format="%.4f")
-        DFA = st.number_input('🔢 DFA', min_value=0.0, max_value=1.0, value=0.7, step=0.01)
-    with col3:
-        flo = st.number_input('🎵 MDVP:Flo(Hz)', min_value=50.0, max_value=300.0, value=100.0)
-        DDP = st.number_input('📊 Jitter:DDP', min_value=0.0, max_value=1.0, value=0.03, step=0.001, format="%.4f")
-        APQ3 = st.number_input('🌊 Shimmer:APQ3', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f")
-        NHR = st.number_input('📈 NHR', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f")
-        spread1 = st.number_input('📊 spread1', min_value=-10.0, max_value=0.0, value=-5.0, step=0.1)
-    with col4:
-        Jitter_percent = st.number_input('📊 MDVP:Jitter(%)', min_value=0.0, max_value=10.0, value=0.5, step=0.01)
-        APQ5 = st.number_input('🌊 Shimmer:APQ5', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f")
-        HNR = st.number_input('📈 HNR', min_value=0.0, max_value=50.0, value=20.0, step=0.1)
-        spread2 = st.number_input('📊 spread2', min_value=0.0, max_value=1.0, value=0.2, step=0.01)
-
+        Jitter_percent = st.number_input('📊 MDVP:Jitter(%)', 0.0, 10.0, 0.5, 0.01, key="pk_jitter_percent")
+        APQ5 = st.number_input('🌊 Shimmer:APQ5', 0.0, 1.0, 0.02, 0.001, format="%.4f", key="pk_apq5")
+        HNR = st.number_input('📈 HNR', 0.0, 50.0, 20.0, 0.1, key="pk_hnr")
+        spread2 = st.number_input('📊 spread2', 0.0, 1.0, 0.2, 0.01, key="pk_spread2")
     with col5:
-        Jitter_Abs = st.number_input('📊 MDVP:Jitter(Abs)', min_value=0.0, max_value=1.0, value=0.0001, step=0.0001, format="%.6f", key="pk_jitter_abs")
-        D2 = st.number_input('🔢 D2', min_value=0.0, max_value=5.0, value=2.0, step=0.1, key="pk_d2")
-        PPE = st.number_input('🔢 PPE', min_value=0.0, max_value=1.0, value=0.2, step=0.01, key="pk_ppe")
+        Jitter_Abs = st.number_input('📊 MDVP:Jitter(Abs)', 0.0, 1.0, 0.0001, 0.0001, format="%.6f", key="pk_jitter_abs")
+        D2 = st.number_input('🔢 D2', 0.0, 5.0, 2.0, 0.1, key="pk_d2")
+        PPE = st.number_input('🔢 PPE', 0.0, 1.0, 0.2, 0.01, key="pk_ppe")
 
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-
         if st.button("🔬 Run Parkinson's Test", type="primary", use_container_width=True, key="run_parkinsons_test"):
-
-        if st.button("🔬 Run Parkinson's Test", type="primary", use_container_width=True):
-
             if not patient_name:
                 st.warning("⚠️ Please enter a patient name before running the test.")
             else:
                 try:
-                    user_input = [float(fo), float(fhi), float(flo), float(Jitter_percent), float(Jitter_Abs), float(RAP), float(PPQ), float(DDP), float(Shimmer), float(Shimmer_dB), float(APQ3), float(APQ5), float(APQ), float(DDA), float(NHR), float(HNR), float(RPDE), float(DFA), float(spread1), float(spread2), float(D2), float(PPE)]
+                    user_input = [fo, fhi, flo, Jitter_percent, Jitter_Abs, RAP, PPQ, DDP, Shimmer, Shimmer_dB,
+                                  APQ3, APQ5, APQ, DDA, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE]
                     parkinsons_prediction = parkinsons_model.predict([user_input])
-                    inputs = {'fo': fo, 'fhi': fhi, 'flo': flo, 'Jitter_percent': Jitter_percent, 'Jitter_Abs': Jitter_Abs, 'RAP': RAP, 'PPQ': PPQ, 'DDP': DDP, 'Shimmer': Shimmer, 'Shimmer_dB': Shimmer_dB, 'APQ3': APQ3, 'APQ5': APQ5, 'APQ': APQ, 'DDA': DDA, 'NHR': NHR, 'HNR': HNR, 'RPDE': RPDE, 'DFA': DFA, 'spread1': spread1, 'spread2': spread2, 'D2': D2, 'PPE': PPE}
+                    inputs = {
+                        'fo': fo, 'fhi': fhi, 'flo': flo, 'Jitter_percent': Jitter_percent,
+                        'Jitter_Abs': Jitter_Abs, 'RAP': RAP, 'PPQ': PPQ, 'DDP': DDP, 'Shimmer': Shimmer,
+                        'Shimmer_dB': Shimmer_dB, 'APQ3': APQ3, 'APQ5': APQ5, 'APQ': APQ, 'DDA': DDA,
+                        'NHR': NHR, 'HNR': HNR, 'RPDE': RPDE, 'DFA': DFA, 'spread1': spread1,
+                        'spread2': spread2, 'D2': D2, 'PPE': PPE
+                    }
 
                     if parkinsons_prediction[0] == 1:
                         st.markdown('<div class="result-positive">⚠️ High Risk: The model suggests increased Parkinson\'s disease risk</div>', unsafe_allow_html=True)
