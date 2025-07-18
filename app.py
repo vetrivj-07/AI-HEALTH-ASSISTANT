@@ -664,6 +664,7 @@ with st.sidebar:
 # Diabetes Prediction Page
 if selected == 'Diabetes Prediction':
     st.markdown("## 🩸 Diabetes Prediction using Machine Learning")
+    
     with st.expander("📋 About Diabetes Prediction"):
         st.markdown("This prediction model analyzes various health parameters to assess diabetes risk.")
 
@@ -671,43 +672,46 @@ if selected == 'Diabetes Prediction':
     patient_name = st.text_input("👤 **Patient Name**", placeholder="e.g., Jane Doe", key="diabetes_patient_name")
     
     col1, col2, col3 = st.columns(3)
-    with col1:
 
+    with col1:
         Pregnancies = st.number_input('🤰 Number of Pregnancies', min_value=0, max_value=20, value=0, help="Total number of pregnancies", key="dp_pregnancies")
         SkinThickness = st.number_input('📏 Skin Thickness (mm)', min_value=0.0, max_value=100.0, value=20.0, help="Triceps skin fold thickness", key="dp_skinthickness")
         DiabetesPedigreeFunction = st.number_input('🧬 Diabetes Pedigree Function', min_value=0.0, max_value=3.0, value=0.5, help="Family history factor", key="dp_dpf")
+
     with col2:
         Glucose = st.number_input('🍭 Glucose Level (mg/dL)', min_value=0.0, max_value=300.0, value=120.0, help="Plasma glucose concentration", key="dp_glucose")
         Insulin = st.number_input('💉 Insulin Level (μU/mL)', min_value=0.0, max_value=900.0, value=80.0, help="2-Hour serum insulin", key="dp_insulin")
-
-        Pregnancies = st.number_input('🤰 Number of Pregnancies', min_value=0, max_value=20, value=0, help="Total number of pregnancies")
-        SkinThickness = st.number_input('📏 Skin Thickness (mm)', min_value=0.0, max_value=100.0, value=20.0, help="Triceps skin fold thickness")
-        DiabetesPedigreeFunction = st.number_input('🧬 Diabetes Pedigree Function', min_value=0.0, max_value=3.0, value=0.5, help="Family history factor")
-    with col2:
-        Glucose = st.number_input('🍭 Glucose Level (mg/dL)', min_value=0.0, max_value=300.0, value=120.0, help="Plasma glucose concentration")
-        Insulin = st.number_input('💉 Insulin Level (μU/mL)', min_value=0.0, max_value=900.0, value=80.0, help="2-Hour serum insulin")
 
     with col3:
         BloodPressure = st.number_input('💓 Blood Pressure (mmHg)', min_value=0.0, max_value=200.0, value=80.0, help="Diastolic blood pressure", key="dp_bloodpressure")
         BMI = st.number_input('⚖️ BMI (kg/m²)', min_value=0.0, max_value=70.0, value=25.0, help="Body mass index", key="dp_bmi")
         Age = st.number_input('🎂 Age (years)', min_value=1, max_value=120, value=30, help="Age in years", key="dp_age")
 
+    # Button to run prediction
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-
         if st.button('🔬 Run Diabetes Test', type="primary", use_container_width=True, key="run_diabetes_test"):
-
-        if st.button('🔬 Run Diabetes Test', type="primary", use_container_width=True):
-
             if not patient_name:
                 st.warning("⚠️ Please enter a patient name before running the test.")
             else:
                 try:
-                    user_input = [float(Pregnancies), float(Glucose), float(BloodPressure), 
-                                 float(SkinThickness), float(Insulin), float(BMI), 
-                                 float(DiabetesPedigreeFunction), float(Age)]
+                    user_input = [
+                        float(Pregnancies), float(Glucose), float(BloodPressure),
+                        float(SkinThickness), float(Insulin), float(BMI),
+                        float(DiabetesPedigreeFunction), float(Age)
+                    ]
+
                     diab_prediction = diabetes_model.predict([user_input])
-                    inputs = {'Pregnancies': Pregnancies, 'Glucose': Glucose, 'BloodPressure': BloodPressure, 'SkinThickness': SkinThickness, 'Insulin': Insulin, 'BMI': BMI, 'DiabetesPedigreeFunction': DiabetesPedigreeFunction, 'Age': Age}
+                    inputs = {
+                        'Pregnancies': Pregnancies,
+                        'Glucose': Glucose,
+                        'BloodPressure': BloodPressure,
+                        'SkinThickness': SkinThickness,
+                        'Insulin': Insulin,
+                        'BMI': BMI,
+                        'DiabetesPedigreeFunction': DiabetesPedigreeFunction,
+                        'Age': Age
+                    }
 
                     if diab_prediction[0] == 1:
                         st.markdown('<div class="result-positive">⚠️ High Risk: The model suggests increased diabetes risk</div>', unsafe_allow_html=True)
@@ -719,6 +723,7 @@ if selected == 'Diabetes Prediction':
                         add_to_history(patient_name, 'Diabetes Prediction', inputs, 'Negative', 'Low')
                 except ValueError:
                     st.error("❌ Please ensure all fields are filled with valid numbers.")
+
 
 # Heart Disease Prediction Page
 if selected == 'Heart Disease Prediction':
