@@ -70,13 +70,12 @@ def add_user(username, password):
     if username in users:
         return False  # Username already exists
     users[username] = hash_password(password)
-<<<<<<< HEAD
+
     save_users(users) # Save changes after adding user
     return True # User added successfully
 =======
     save_users(users)
     return True
->>>>>>> b11d9b7f112ada933af127f161ee2a0dc30a9d51
 
 # --- LOGIN/REGISTER SYSTEM ---
 # Initialize session states
