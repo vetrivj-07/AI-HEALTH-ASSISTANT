@@ -736,7 +736,6 @@ if selected == 'Heart Disease Prediction':
 
     col1, col2, col3 = st.columns(3)
     with col1:
-
         age = st.number_input('🎂 Age (years)', min_value=1, max_value=120, value=50, key="hd_age")
         trestbps = st.number_input('💓 Resting Blood Pressure (mmHg)', min_value=50.0, max_value=250.0, value=120.0, key="hd_trestbps")
         restecg = st.selectbox('📊 Resting ECG Results', options=[0, 1, 2], format_func=lambda x: {0: "Normal", 1: "ST-T Abnormality", 2: "LV Hypertrophy"}[x], key="hd_restecg")
@@ -751,74 +750,52 @@ if selected == 'Heart Disease Prediction':
         fbs = st.selectbox('🍭 Fasting Blood Sugar > 120 mg/dl', options=[0, 1], format_func=lambda x: "No" if x == 0 else "Yes", key="hd_fbs")
         exang = st.selectbox('🏃 Exercise Induced Angina', options=[0, 1], format_func=lambda x: "No" if x == 0 else "Yes", key="hd_exang")
         ca = st.selectbox('🔬 Major Vessels (0-3)', options=[0, 1, 2, 3], key="hd_ca")
+
     thal = st.selectbox('🫀 Thalassemia', options=[0, 1, 2], format_func=lambda x: {0: "Normal", 1: "Fixed Defect", 2: "Reversible Defect"}[x], key="hd_thal")
 
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button('🔬 Run Heart Disease Test', type="primary", use_container_width=True, key="run_heart_disease_test"):
-
-        age = st.number_input('🎂 Age (years)', min_value=1, max_value=120, value=50)
-        trestbps = st.number_input('💓 Resting Blood Pressure (mmHg)', min_value=50.0, max_value=250.0, value=120.0)
-        restecg = st.selectbox('📊 Resting ECG Results', options=[0, 1, 2], format_func=lambda x: {0: "Normal", 1: "ST-T Abnormality", 2: "LV Hypertrophy"}[x])
-        oldpeak = st.number_input('📈 ST Depression', min_value=0.0, max_value=10.0, value=1.0, step=0.1)
-    with col2:
-        sex = st.selectbox('👤 Sex', options=[0, 1], format_func=lambda x: "Female" if x == 0 else "Male")
-        chol = st.number_input('🧪 Serum Cholesterol (mg/dl)', min_value=100.0, max_value=600.0, value=200.0)
-        thalach = st.number_input('💨 Max Heart Rate Achieved', min_value=50.0, max_value=250.0, value=150.0)
-        slope = st.selectbox('📊 ST Segment Slope', options=[0, 1, 2], format_func=lambda x: {0: "Upsloping", 1: "Flat", 2: "Downsloping"}[x])
-    with col3:
-        cp = st.selectbox('🫀 Chest Pain Type', options=[0, 1, 2, 3], format_func=lambda x: {0: "Typical Angina", 1: "Atypical Angina", 2: "Non-anginal", 3: "Asymptomatic"}[x])
-        fbs = st.selectbox('🍭 Fasting Blood Sugar > 120 mg/dl', options=[0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
-        exang = st.selectbox('🏃 Exercise Induced Angina', options=[0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
-        ca = st.selectbox('🔬 Major Vessels (0-3)', options=[0, 1, 2, 3])
-    thal = st.selectbox('🫀 Thalassemia', options=[0, 1, 2], format_func=lambda x: {0: "Normal", 1: "Fixed Defect", 2: "Reversible Defect"}[x])
-
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button('🔬 Run Heart Disease Test', type="primary", use_container_width=True):
-
             if not patient_name:
                 st.warning("⚠️ Please enter a patient name before running the test.")
             else:
                 try:
-                    user_input = [float(age), float(sex), float(cp), float(trestbps), float(chol), float(fbs), float(restecg), float(thalach), float(exang), float(oldpeak), float(slope), float(ca), float(thal)]
+                    user_input = [float(age), float(sex), float(cp), float(trestbps), float(chol), float(fbs),
+                                  float(restecg), float(thalach), float(exang), float(oldpeak), float(slope),
+                                  float(ca), float(thal)]
                     heart_prediction = heart_disease_model.predict([user_input])
-                    inputs = {'age': age, 'sex': sex, 'cp': cp, 'trestbps': trestbps, 'chol': chol, 'fbs': fbs, 'restecg': restecg, 'thalach': thalach, 'exang': exang, 'oldpeak': oldpeak, 'slope': slope, 'ca': ca, 'thal': thal}
+                    inputs = {
+                        'age': age, 'sex': sex, 'cp': cp, 'trestbps': trestbps, 'chol': chol, 'fbs': fbs,
+                        'restecg': restecg, 'thalach': thalach, 'exang': exang, 'oldpeak': oldpeak,
+                        'slope': slope, 'ca': ca, 'thal': thal
+                    }
 
                     if heart_prediction[0] == 1:
                         st.markdown('<div class="result-positive">⚠️ High Risk: The model suggests increased heart disease risk</div>', unsafe_allow_html=True)
                         st.warning("Please consult with a cardiologist for proper evaluation.")
                         add_to_history(patient_name, 'Heart Disease Prediction', inputs, 'Positive', 'High')
-
-                        
                         st.markdown("---")
                         st.subheader("Visualizing Potential Heart Condition")
-                        image_path_high_risk = os.path.join(IMAGE_DIR, 'blocked_heart.png') 
-                        if os.path.exists(image_path_high_risk):
-                            st.image(image_path_high_risk, caption="Image: Potential indication of blockages", use_column_width=True)
+                        image_path = os.path.join(IMAGE_DIR, 'blocked_heart.png')
+                        if os.path.exists(image_path):
+                            st.image(image_path, caption="Image: Potential indication of blockages", use_column_width=True)
                         else:
-                            st.info("Visual cue for high risk: 💔 (Please place 'blocked_heart.png' in the 'images' folder for a visual representation.)")
-                        
-
+                            st.info("💔 Place 'blocked_heart.png' in 'images' folder for visual.")
 
                     else:
                         st.markdown('<div class="result-negative">✅ Low Risk: The model suggests lower heart disease risk</div>', unsafe_allow_html=True)
                         st.success("Keep up the healthy lifestyle!")
                         add_to_history(patient_name, 'Heart Disease Prediction', inputs, 'Negative', 'Low')
-
-
                         st.markdown("---")
                         st.subheader("Visualizing Healthy Heart Status")
-                        image_path_low_risk = os.path.join(IMAGE_DIR, 'healthy_heart.png') 
-                        if os.path.exists(image_path_low_risk):
-                            st.image(image_path_low_risk, caption="Image: Indicating a healthy cardiovascular system", use_column_width=True)
+                        image_path = os.path.join(IMAGE_DIR, 'healthy_heart.png')
+                        if os.path.exists(image_path):
+                            st.image(image_path, caption="Image: Indicating a healthy cardiovascular system", use_column_width=True)
                         else:
-                            st.info("Visual cue for low risk: ❤️‍🩹 (Please place 'healthy_heart.png' in the 'images' folder for a visual representation.)")
-
-
-
+                            st.info("❤️‍🩹 Place 'healthy_heart.png' in 'images' folder for visual.")
                 except ValueError:
                     st.error("❌ Please ensure all fields are filled with valid values.")
+
 
 # Parkinson's Prediction Page
 if selected == "Parkinsons Prediction":
