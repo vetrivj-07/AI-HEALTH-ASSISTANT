@@ -612,29 +612,27 @@ def load_and_preprocess_dataset():
     return X_loaded, y_loaded
 
 
-# sidebar for navigation
+from streamlit_option_menu import option_menu
+
+# Sidebar for navigation
 with st.sidebar:
     st.markdown(f"### Welcome, {st.session_state.get('username', 'Guest')}! 👋")
 
+    # Logout button
     if st.button("🚪 Logout", key="sidebar_logout_btn"):
-
-    if st.button("🚪 Logout"):
-
         st.session_state.logged_in = False
-        if 'username' in st.session_state: del st.session_state.username
+        if 'username' in st.session_state:
+            del st.session_state.username
         st.session_state.page = "Login"
         st.rerun()
 
+    # Navigation menu
     st.markdown("### 🩺 Navigation")
     selected = option_menu(
         'Health Assistant',
         ['Diabetes Prediction', 'Heart Disease Prediction', 'Parkinsons Prediction', 'Brain Tumor Prediction', 
          'Prediction History', 'Trend Analysis', 'Export Data', 'Health Chatbot'],
-
-        icons=['🩸', '❤️', '🧠', '🖼️', '📋', '📊', '💾', '🤖'], # Changed Brain Tumor icon
-
-        icons=['🩸', '❤️', '🧠', '📋', '📊', '💾', '🤖'],
-
+        icons=['🩸', '❤️', '🧠', '🖼️', '📋', '📊', '💾', '🤖'],
         menu_icon='hospital-fill', default_index=0,
         styles={
             "container": {"padding": "10px!important", "background": "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)", "border-radius": "15px", "box-shadow": "0 8px 32px rgba(255,255,255,0.1)", "border": "2px solid #333333"},
@@ -644,20 +642,24 @@ with st.sidebar:
             "menu-title": {"color": "#ffffff", "font-weight": "bold", "text-align": "center", "font-size": "18px", "text-shadow": "2px 2px 4px rgba(0,0,0,0.3)", "margin-bottom": "20px"}
         }
     )
-    
+
+    # About section
     st.markdown("---")
     st.markdown("### ℹ️ About")
-    st.info("""Enhanced AI health assistant with disease risk prediction, history tracking, trend analysis, and a health chatbot.""")
-    
-    if st.session_state.prediction_history:
+    st.info("Enhanced AI health assistant with disease risk prediction, history tracking, trend analysis, and a health chatbot.")
+
+    # Quick stats section
+    if st.session_state.get("prediction_history"):
         st.markdown("### 📊 Quick Stats")
         total_predictions = len(st.session_state.prediction_history)
-        high_risk_count = sum(1 for entry in st.session_state.prediction_history if entry['risk_level'] == 'High')
+        high_risk_count = sum(1 for entry in st.session_state.prediction_history if entry.get('risk_level') == 'High')
+
         col1, col2 = st.columns(2)
         with col1:
             st.markdown(f'<div class="metric-container"><h3>{total_predictions}</h3><p>Total Tests</p></div>', unsafe_allow_html=True)
         with col2:
             st.markdown(f'<div class="metric-container"><h3>{high_risk_count}</h3><p>High Risk</p></div>', unsafe_allow_html=True)
+
 
 # Diabetes Prediction Page
 if selected == 'Diabetes Prediction':
