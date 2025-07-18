@@ -73,7 +73,6 @@ def add_user(username, password):
 
     save_users(users) # Save changes after adding user
     return True # User added successfully
-=======
     save_users(users)
     return True
 
@@ -94,7 +93,7 @@ def login():
     col1, col2 = st.columns([1, 2.5])
     with col1:
         if st.button("🔓 Login", use_container_width=True, key="login_button"):
-=======
+
     username = st.text_input("👤 Username")
     password = st.text_input("🔑 Password", type="password")
 
@@ -112,7 +111,7 @@ def login():
     with col2:
 
         if st.button("Don't have an account? Register", use_container_width=True, key="register_button_from_login"):
-=======
+
         if st.button("Don't have an account? Register", use_container_width=True):
 
             st.session_state.page = "Register"
@@ -129,7 +128,7 @@ def register():
     col1, col2 = st.columns([1, 2.5])
     with col1:
         if st.button("✍️ Register", use_container_width=True, key="register_submit_button"):
-=======
+            
     new_username = st.text_input("👤 Choose a Username")
     new_password = st.text_input("🔑 Choose a Password", type="password")
     confirm_password = st.text_input("🔑 Confirm Password", type="password")
@@ -152,7 +151,7 @@ def register():
     with col2:
 
         if st.button("Already have an account? Login", use_container_width=True, key="login_button_from_register"):
-=======
+            
         if st.button("Already have an account? Login", use_container_width=True):
 
             st.session_state.page = "Login"
@@ -202,7 +201,7 @@ DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 IMG_SIZE = 224
 BATCH_SIZE = 32
 EPOCHS = 10
-=======
+
 # Configure DeepSeek API using environment variables for better security
 load_dotenv()
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
@@ -410,7 +409,7 @@ def add_to_history(patient_name, prediction_type, inputs, result, risk_level):
 def export_history_json():
     return json.dumps(st.session_state.prediction_history, indent=2)
 
-=======
+
 # --- CORRECTED FUNCTION ---
 
 # This version creates a "wide" CSV with a separate column for each input parameter.
@@ -458,7 +457,7 @@ def create_trend_charts():
     patient_list = ['All'] + sorted(df['patient_name'].unique().tolist())
 
     selected_patient = st.selectbox("Analyze Trends for a Specific Patient", patient_list, key="trend_patient_select")
-=======
+
     selected_patient = st.selectbox("Analyze Trends for a Specific Patient", patient_list)
 
     if selected_patient != 'All':
@@ -636,7 +635,7 @@ with st.sidebar:
     st.markdown(f"### Welcome, {st.session_state.get('username', 'Guest')}! 👋")
 
     if st.button("🚪 Logout", key="sidebar_logout_btn"):
-=======
+
     if st.button("🚪 Logout"):
 
         st.session_state.logged_in = False
@@ -651,7 +650,7 @@ with st.sidebar:
          'Prediction History', 'Trend Analysis', 'Export Data', 'Health Chatbot'],
 
         icons=['🩸', '❤️', '🧠', '🖼️', '📋', '📊', '💾', '🤖'], # Changed Brain Tumor icon
-=======
+
         icons=['🩸', '❤️', '🧠', '📋', '📊', '💾', '🤖'],
 
         menu_icon='hospital-fill', default_index=0,
@@ -696,7 +695,7 @@ if selected == 'Diabetes Prediction':
     with col2:
         Glucose = st.number_input('🍭 Glucose Level (mg/dL)', min_value=0.0, max_value=300.0, value=120.0, help="Plasma glucose concentration", key="dp_glucose")
         Insulin = st.number_input('💉 Insulin Level (μU/mL)', min_value=0.0, max_value=900.0, value=80.0, help="2-Hour serum insulin", key="dp_insulin")
-=======
+
         Pregnancies = st.number_input('🤰 Number of Pregnancies', min_value=0, max_value=20, value=0, help="Total number of pregnancies")
         SkinThickness = st.number_input('📏 Skin Thickness (mm)', min_value=0.0, max_value=100.0, value=20.0, help="Triceps skin fold thickness")
         DiabetesPedigreeFunction = st.number_input('🧬 Diabetes Pedigree Function', min_value=0.0, max_value=3.0, value=0.5, help="Family history factor")
@@ -713,7 +712,7 @@ if selected == 'Diabetes Prediction':
     with col2:
 
         if st.button('🔬 Run Diabetes Test', type="primary", use_container_width=True, key="run_diabetes_test"):
-=======
+
         if st.button('🔬 Run Diabetes Test', type="primary", use_container_width=True):
 
             if not patient_name:
@@ -768,7 +767,7 @@ if selected == 'Heart Disease Prediction':
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button('🔬 Run Heart Disease Test', type="primary", use_container_width=True, key="run_heart_disease_test"):
-=======
+
         age = st.number_input('🎂 Age (years)', min_value=1, max_value=120, value=50)
         trestbps = st.number_input('💓 Resting Blood Pressure (mmHg)', min_value=50.0, max_value=250.0, value=120.0)
         restecg = st.selectbox('📊 Resting ECG Results', options=[0, 1, 2], format_func=lambda x: {0: "Normal", 1: "ST-T Abnormality", 2: "LV Hypertrophy"}[x])
@@ -811,7 +810,7 @@ if selected == 'Heart Disease Prediction':
                         else:
                             st.info("Visual cue for high risk: 💔 (Please place 'blocked_heart.png' in the 'images' folder for a visual representation.)")
                         
-=======
+
 
                     else:
                         st.markdown('<div class="result-negative">✅ Low Risk: The model suggests lower heart disease risk</div>', unsafe_allow_html=True)
@@ -827,7 +826,7 @@ if selected == 'Heart Disease Prediction':
                         else:
                             st.info("Visual cue for low risk: ❤️‍🩹 (Please place 'healthy_heart.png' in the 'images' folder for a visual representation.)")
 
-=======
+
 
                 except ValueError:
                     st.error("❌ Please ensure all fields are filled with valid values.")
@@ -867,7 +866,7 @@ if selected == "Parkinsons Prediction":
         APQ5 = st.number_input('🌊 Shimmer:APQ5', min_value=0.0, max_value=1.0, value=0.02, step=0.001, format="%.4f", key="pk_apq5")
         HNR = st.number_input('📈 HNR', min_value=0.0, max_value=50.0, value=20.0, step=0.1, key="pk_hnr")
         spread2 = st.number_input('📊 spread2', min_value=0.0, max_value=1.0, value=0.2, step=0.01, key="pk_spread2")
-=======
+
         fo = st.number_input('🎵 MDVP:Fo(Hz)', min_value=50.0, max_value=300.0, value=150.0, help="Average vocal fundamental frequency")
         RAP = st.number_input('📊 MDVP:RAP', min_value=0.0, max_value=1.0, value=0.01, step=0.001, format="%.4f")
         Shimmer = st.number_input('🌊 MDVP:Shimmer', min_value=0.0, max_value=1.0, value=0.03, step=0.001, format="%.4f")
@@ -900,7 +899,7 @@ if selected == "Parkinsons Prediction":
     with col2:
 
         if st.button("🔬 Run Parkinson's Test", type="primary", use_container_width=True, key="run_parkinsons_test"):
-=======
+
         if st.button("🔬 Run Parkinson's Test", type="primary", use_container_width=True):
 
             if not patient_name:
@@ -1483,7 +1482,7 @@ if selected == "Brain Tumor Prediction":
                 else:
                     st.warning("Dataset not loaded. Please load the dataset in the 'Dataset Info' tab.")
 
-=======
+
 
 
 # Prediction History Page
@@ -1508,7 +1507,7 @@ if selected == 'Prediction History':
             selected_risk = st.selectbox("Filter by Risk Level", risk_levels, key="filter_risk")
         with col4:
             if st.button("🗑️ Clear History", type="secondary", key="clear_history_btn"):
-=======
+
             selected_patient = st.selectbox("Filter by Patient", patient_names)
         with col2:
             prediction_types = ['All'] + list(set(entry['type'] for entry in st.session_state.prediction_history))
@@ -1587,7 +1586,7 @@ if selected == 'Export Data':
             json_data = export_history_json()
 
             st.download_button(label="📥 Download JSON", data=json_data, file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json", mime="application/json", use_container_width=True, key="download_json")
-=======
+
             st.download_button(label="📥 Download JSON", data=json_data, file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json", mime="application/json", use_container_width=True)
 
             st.markdown('</div>', unsafe_allow_html=True)
@@ -1599,7 +1598,7 @@ if selected == 'Export Data':
             if csv_data:
 
                 st.download_button(label="📥 Download CSV", data=csv_data, file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mime="text/csv", use_container_width=True, key="download_csv")
-=======
+
                 st.download_button(label="📥 Download CSV", data=csv_data, file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mime="text/csv", use_container_width=True)
 
             st.markdown('</div>', unsafe_allow_html=True)
@@ -1609,7 +1608,7 @@ if selected == 'Export Data':
         
 
         if st.button("📊 Generate Report", type="primary", use_container_width=True, key="generate_report_btn"):
-=======
+
         if st.button("📊 Generate Report", type="primary", use_container_width=True):
 
             report = f"# 🏥 Comprehensive Health Report\n**Generated on:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
@@ -1635,7 +1634,7 @@ if selected == 'Export Data':
             st.markdown(report)
 
             st.download_button(label="📥 Download Report", data=report, file_name=f"health_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md", mime="text/markdown", use_container_width=True, key="download_report")
-=======
+
             st.download_button(label="📥 Download Report", data=report, file_name=f"health_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md", mime="text/markdown", use_container_width=True)
 
 
@@ -1660,7 +1659,7 @@ if selected == 'Health Chatbot':
 
 
     if user_prompt := st.chat_input("Ask a health-related question...", key="chatbot_input"):
-=======
+
     if user_prompt := st.chat_input("Ask a health-related question..."):
 
         st.session_state.chatbot_history.append({"role": "user", "content": user_prompt})
@@ -1680,6 +1679,6 @@ if selected == 'Health Chatbot':
                     st.error(error_message)
 
                     st.session_state.chatbot_history.append({"role": "assistant", "content": error_message})
-=======
+
                     st.session_state.chatbot_history.append({"role": "assistant", "content": error_message})
 
