@@ -1532,7 +1532,7 @@ if selected == 'Trend Analysis':
 # Export Data Page
 if selected == 'Export Data':
     st.markdown("## 💾 Export Data & Reports")
-    
+
     if not st.session_state.prediction_history:
         st.info("No prediction history available for export.")
     else:
@@ -1543,42 +1543,49 @@ if selected == 'Export Data':
             st.markdown('<div class="info-card">', unsafe_allow_html=True)
             st.markdown("#### 📄 JSON Export")
             json_data = export_history_json()
-
-            st.download_button(label="📥 Download JSON", data=json_data, file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json", mime="application/json", use_container_width=True, key="download_json")
-
-            st.download_button(label="📥 Download JSON", data=json_data, file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json", mime="application/json", use_container_width=True)
-
+            st.download_button(
+                label="📥 Download JSON",
+                data=json_data,
+                file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                mime="application/json",
+                use_container_width=True,
+                key="download_json"
+            )
             st.markdown('</div>', unsafe_allow_html=True)
+
         with col2:
             st.markdown('<div class="info-card">', unsafe_allow_html=True)
             st.markdown("#### 📊 CSV Export")
             st.markdown("Export history with each input parameter in its own column.")
             csv_data = export_history_csv()
             if csv_data:
-
-                st.download_button(label="📥 Download CSV", data=csv_data, file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mime="text/csv", use_container_width=True, key="download_csv")
-
-                st.download_button(label="📥 Download CSV", data=csv_data, file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mime="text/csv", use_container_width=True)
-
+                st.download_button(
+                    label="📥 Download CSV",
+                    data=csv_data,
+                    file_name=f"health_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                    mime="text/csv",
+                    use_container_width=True,
+                    key="download_csv"
+                )
             st.markdown('</div>', unsafe_allow_html=True)
-        
+
         st.markdown("---")
         st.markdown("### 📋 Comprehensive Health Report")
-        
 
         if st.button("📊 Generate Report", type="primary", use_container_width=True, key="generate_report_btn"):
-
-        if st.button("📊 Generate Report", type="primary", use_container_width=True):
-
             report = f"# 🏥 Comprehensive Health Report\n**Generated on:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
-            report += f"## 📊 Summary Statistics\n- **Total Predictions:** {len(st.session_state.prediction_history)}\n- **High Risk Results:** {sum(1 for entry in st.session_state.prediction_history if entry['risk_level'] == 'High')}\n"
+            report += f"## 📊 Summary Statistics\n- **Total Predictions:** {len(st.session_state.prediction_history)}\n"
+            report += f"- **High Risk Results:** {sum(1 for entry in st.session_state.prediction_history if entry['risk_level'] == 'High')}\n"
+
             report += "## 🔬 Test Breakdown\n"
             prediction_counts = {}
             for entry in st.session_state.prediction_history:
                 pred_type = entry['type']
-                if pred_type not in prediction_counts: prediction_counts[pred_type] = {'total': 0, 'high_risk': 0}
+                if pred_type not in prediction_counts:
+                    prediction_counts[pred_type] = {'total': 0, 'high_risk': 0}
                 prediction_counts[pred_type]['total'] += 1
-                if entry['risk_level'] == 'High': prediction_counts[pred_type]['high_risk'] += 1
+                if entry['risk_level'] == 'High':
+                    prediction_counts[pred_type]['high_risk'] += 1
             for pred_type, counts in prediction_counts.items():
                 risk_rate = (counts['high_risk'] / counts['total'] * 100) if counts['total'] > 0 else 0
                 report += f"- **{pred_type}:** {counts['total']} tests, {counts['high_risk']} high risk ({risk_rate:.1f}%)\n"
@@ -1588,13 +1595,18 @@ if selected == 'Export Data':
             for entry in recent_predictions:
                 risk_indicator = "🔴" if entry['risk_level'] == 'High' else "🟢"
                 report += f"- {risk_indicator} {entry['timestamp']} - **{entry['patient_name']}** - {entry['type']} - {entry['risk_level']} Risk\n"
-            
+
             report += "\n## ⚠️ Important Disclaimer\nThis AI-powered health assistant is for informational purposes only..."
+
             st.markdown(report)
-
-            st.download_button(label="📥 Download Report", data=report, file_name=f"health_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md", mime="text/markdown", use_container_width=True, key="download_report")
-
-            st.download_button(label="📥 Download Report", data=report, file_name=f"health_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md", mime="text/markdown", use_container_width=True)
+            st.download_button(
+                label="📥 Download Report",
+                data=report,
+                file_name=f"health_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
+                mime="text/markdown",
+                use_container_width=True,
+                key="download_report"
+            )
 
 
 # Health Chatbot page
