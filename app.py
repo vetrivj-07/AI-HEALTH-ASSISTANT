@@ -12,7 +12,6 @@ import plotly.graph_objects as go
 from openai import OpenAI
 from dotenv import load_dotenv
 import hashlib # Added for password hashing
-<<<<<<< HEAD
 
 # Imports for Brain Tumor Detection Module
 from PIL import Image
