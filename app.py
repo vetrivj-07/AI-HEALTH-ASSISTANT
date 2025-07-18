@@ -109,30 +109,22 @@ def login():
             st.session_state.page = "Register"
             st.rerun()
 
-# Registration form function
 def register():
     st.markdown("## 📝 Register New Account")
 
+    # Input fields
     new_username = st.text_input("👤 Choose a Username", key="register_username")
     new_password = st.text_input("🔑 Choose a Password", type="password", key="register_password")
     confirm_password = st.text_input("🔑 Confirm Password", type="password", key="confirm_password")
 
     col1, col2 = st.columns([1, 2.5])
+
     with col1:
         if st.button("✍️ Register", use_container_width=True, key="register_submit_button"):
-            
-    new_username = st.text_input("👤 Choose a Username")
-    new_password = st.text_input("🔑 Choose a Password", type="password")
-    confirm_password = st.text_input("🔑 Confirm Password", type="password")
-
-    col1, col2 = st.columns([1, 2.5])
-    with col1:
-        if st.button("✍️ Register", use_container_width=True):
-
             if not new_username or not new_password or not confirm_password:
-                st.warning("Please fill out all fields.")
+                st.warning("⚠️ Please fill out all fields.")
             elif new_password != confirm_password:
-                st.error("Passwords do not match.")
+                st.error("❌ Passwords do not match.")
             else:
                 if add_user(new_username, new_password):
                     st.success("✅ Account created successfully! Please log in.")
@@ -140,14 +132,12 @@ def register():
                     st.rerun()
                 else:
                     st.error("❌ This username is already taken. Please choose another one.")
+
     with col2:
-
         if st.button("Already have an account? Login", use_container_width=True, key="login_button_from_register"):
-            
-        if st.button("Already have an account? Login", use_container_width=True):
-
             st.session_state.page = "Login"
             st.rerun()
+
 
 # Show login/register page if not logged in
 if not st.session_state.logged_in:
