@@ -3,6 +3,7 @@ tensorflow==2.13.0
 numpy
 pandas
 Pillow
+plotly
 scikit-learn
 streamlit-option-menu
 openai
