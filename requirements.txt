@@ -1,10 +1,12 @@
 streamlit
-streamlit-option-menu
 tensorflow==2.13.0
+numpy
 pandas
-plotly
+Pillow
+scikit-learn
+streamlit-option-menu
 openai
 python-dotenv
-scikit-learn
+
 
 
